@@ -1,0 +1,18 @@
+﻿  main.cpp
+C:\Users\marnu\source\repos\HeightMap\HeightMap\main.cpp(128,28): warning C4018: '<': signed/unsigned mismatch
+C:\Users\marnu\source\repos\HeightMap\HeightMap\main.cpp(130,32): warning C4018: '<': signed/unsigned mismatch
+C:\Users\marnu\source\repos\HeightMap\HeightMap\main.cpp(168,28): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\marnu\source\repos\HeightMap\HeightMap\main.cpp(199,40): warning C4018: '<': signed/unsigned mismatch
+C:\Users\marnu\source\repos\HeightMap\HeightMap\main.cpp(218,32): warning C4244: 'argument': conversion from 'unsigned int' to 'GLfloat', possible loss of data
+C:\Users\marnu\source\repos\HeightMap\HeightMap\main.cpp(218,29): warning C4244: 'argument': conversion from 'size_t' to 'GLfloat', possible loss of data
+C:\Users\marnu\source\repos\HeightMap\HeightMap\main.cpp(218,26): warning C4244: 'argument': conversion from 'size_t' to 'GLfloat', possible loss of data
+C:\Users\marnu\source\repos\HeightMap\HeightMap\main.cpp(288,17): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\marnu\source\repos\HeightMap\HeightMap\main.cpp(289,17): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\marnu\source\repos\HeightMap\HeightMap\main.cpp(293,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\marnu\source\repos\HeightMap\HeightMap\main.cpp(294,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\marnu\source\repos\HeightMap\HeightMap\main.cpp(296,13): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\marnu\source\repos\HeightMap\HeightMap\main.cpp(297,13): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\marnu\source\repos\HeightMap\HeightMap\main.cpp(306,31): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\marnu\source\repos\HeightMap\HeightMap\main.cpp(311,28): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+  HeightMap.vcxproj -> C:\Users\marnu\source\repos\HeightMap\x64\Debug\HeightMap.exe
