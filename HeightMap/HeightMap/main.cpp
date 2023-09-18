@@ -273,7 +273,8 @@ int main()
         unsigned int random;
         bool white = false;
       
-
+        int xadjust = 0;
+            int yadjust = 0;
         for (size_t i = 0; i < 10; i++)
         {
 
@@ -284,17 +285,75 @@ int main()
                     random = rand() % 10;
                     if (white == true)
                     {
-                       /* MoveCube(cubeShader, i, j, random);
-                        DrawCube(cubeShader);  */                   
+                        glm::mat4 cubemodel = glm::mat4(1.0f);
+                            //model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+                            cubemodel = glm::rotate(cubemodel, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
+                        
+                            glm::mat4 cubeview = glm::mat4(1.0f);
+                            // note that we're translating the scene in the reverse direction of where we want to move
+                            cubeview = glm::translate(cubeview, glm::vec3(0.0f, 0.0f, -3.0f));
+                        
+                            glm::mat4 cubeprojection = glm::mat4(1.0f);
+                            cubeprojection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+                        
+                            unsigned int viewLoc = glGetUniformLocation(cubeShader.ID, "view");
+                        
+                            glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &cubeview[0][0]);
+                        
+                            cubeShader.setMat4("projection", cubeprojection);
+                            cubeShader.setMat4("model", cubemodel);
+                        glm::vec4 vec(1.0f, 0.0f, 0.0f, 1.0f);
+                           glm::mat4 trans = glm::mat4(1.0f);
+
+                            trans = glm::translate(trans, glm::vec3(xadjust,yadjust,random));
+                            vec = trans * vec;
+                        
+                            std::cout << vec.x << vec.y << vec.z << std::endl;
+                        
+                            unsigned int transformLoc = glGetUniformLocation(cubeShader.ID, "transform");
+                        
+                           glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
+                        
+                           cubeShader.setMat4("transform", trans);
+                                         
                         myCube.Draw(cubeShader,0);
                         white = false;
                     }
                     else
                     {
-                     /*   MoveCube(cubeShader, i, j, random);
-                        DrawCube(cubeShader);*/
-                        myCube.Draw(cubeShader, 1);
-                        white = true;
+                        glm::mat4 cubemodel = glm::mat4(1.0f);
+                        //model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+                        cubemodel = glm::rotate(cubemodel, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
+
+                        glm::mat4 cubeview = glm::mat4(1.0f);
+                        // note that we're translating the scene in the reverse direction of where we want to move
+                        cubeview = glm::translate(cubeview, glm::vec3(0.0f, 0.0f, -3.0f));
+
+                        glm::mat4 cubeprojection = glm::mat4(1.0f);
+                        cubeprojection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+
+                        unsigned int viewLoc = glGetUniformLocation(cubeShader.ID, "view");
+
+                        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &cubeview[0][0]);
+
+                        cubeShader.setMat4("projection", cubeprojection);
+                        cubeShader.setMat4("model", cubemodel);
+                        glm::vec4 vec(1.0f, 0.0f, 0.0f, 1.0f);
+                        glm::mat4 trans = glm::mat4(1.0f);
+
+                        trans = glm::translate(trans, glm::vec3(xadjust, yadjust, random));
+                        vec = trans * vec;
+
+                        std::cout << vec.x << vec.y << vec.z << std::endl;
+
+                        unsigned int transformLoc = glGetUniformLocation(cubeShader.ID, "transform");
+
+                        glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
+
+                        cubeShader.setMat4("transform", trans);
+
+                        myCube.Draw(cubeShader, 0);
+                        white = false;
                     }
                     
                 }
@@ -302,8 +361,9 @@ int main()
                 {
                     myCube.Draw(cubeShader, 3);
                 }
-                
+                yadjust++;
             }
+            xadjust++;
         }
     }
 
