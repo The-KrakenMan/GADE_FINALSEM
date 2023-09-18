@@ -1,16 +1,20 @@
 ﻿  main.cpp
-C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(129,28): warning C4018: '<': signed/unsigned mismatch
-C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(131,32): warning C4018: '<': signed/unsigned mismatch
-C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(215,28): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(248,40): warning C4018: '<': signed/unsigned mismatch
-C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(272,25): error C2660: 'DrawCube': function does not take 1 arguments
-C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(22,6): message : see declaration of 'DrawCube'
-C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(272,25): message : while trying to match the argument list '(Shader)'
-C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(273,25): error C2146: syntax error: missing ';' before identifier 'myCube'
-C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(357,17): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(358,17): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(362,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(363,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(365,13): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(366,13): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(375,31): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(142,28): warning C4018: '<': signed/unsigned mismatch
+C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(144,32): warning C4018: '<': signed/unsigned mismatch
+C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(228,28): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(261,40): warning C4018: '<': signed/unsigned mismatch
+C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(287,25): error C3861: 'MoveCube': identifier not found
+C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(288,25): error C2660: 'DrawCube': function does not take 1 arguments
+C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(23,6): message : see declaration of 'DrawCube'
+C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(288,25): message : while trying to match the argument list '(Shader)'
+C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(294,25): error C3861: 'MoveCube': identifier not found
+C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(295,25): error C2660: 'DrawCube': function does not take 1 arguments
+C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(23,6): message : see declaration of 'DrawCube'
+C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(295,25): message : while trying to match the argument list '(Shader)'
+C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(375,17): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(376,17): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(380,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(381,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(383,13): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(384,13): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(393,31): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data

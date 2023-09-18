@@ -5,6 +5,7 @@
 #include "stb_image.h"
 
 #include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "shader_m.h"
@@ -39,6 +40,8 @@ bool firstMouse = true;
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 
+
+
 int main()
 {
     // glfw: initialize and configure
@@ -60,7 +63,9 @@ int main()
         std::cout << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
         return -1;
+
     }
+
     glfwMakeContextCurrent(window);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     glfwSetKeyCallback(window, key_callback);
@@ -81,7 +86,15 @@ int main()
     // configure global opengl state
     // -----------------------------
     glEnable(GL_DEPTH_TEST);
+    //// Create a camera
+     //Camera camera;
 
+     //// Set the initial position and look at the center of the chessboard
+     //camera.setPosition(0); // Start at the first position
+     //camera.lookAt(glm::vec3(0.0f, 0.0f, 0.0f)); // Look at the center
+
+     //// Set the key callback
+     //glfwSetKeyCallback(window, keyCallback);
     // build and compile our shader program
     // ------------------------------------
     Shader heightMapShader("resources/shaders/height.shader.vert","resources/shaders/height.shader.frag" );
@@ -259,6 +272,8 @@ int main()
         glfwPollEvents();
         unsigned int random;
         bool white = false;
+      
+
         for (size_t i = 0; i < 10; i++)
         {
 
@@ -269,14 +284,15 @@ int main()
                     random = rand() % 10;
                     if (white == true)
                     {
-                        cubeShader.
-                        DrawCube(cubeShader);
+                       /* MoveCube(cubeShader, i, j, random);
+                        DrawCube(cubeShader);  */                   
                         myCube.Draw(cubeShader,0);
                         white = false;
                     }
                     else
                     {
-                        DrawCube(cubeShader);
+                     /*   MoveCube(cubeShader, i, j, random);
+                        DrawCube(cubeShader);*/
                         myCube.Draw(cubeShader, 1);
                         white = true;
                     }
@@ -377,25 +393,55 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
     camera.ProcessMouseScroll(yoffset);
 }
 
-void DrawCube(Shader cubeShader) 
-{
-    //CUBE
-    glm::mat4 cubemodel = glm::mat4(1.0f);
-    //model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-    cubemodel = glm::rotate(cubemodel, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
-
-    glm::mat4 cubeview = glm::mat4(1.0f);
-    // note that we're translating the scene in the reverse direction of where we want to move
-    cubeview = glm::translate(cubeview, glm::vec3(0.0f, 0.0f, -3.0f));
-
-    glm::mat4 cubeprojection = glm::mat4(1.0f);
-    cubeprojection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
-
-    unsigned int viewLoc = glGetUniformLocation(cubeShader.ID, "view");
-
-    glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &cubeview[0][0]);
-
-    cubeShader.setMat4("projection", cubeprojection);
-    cubeShader.setMat4("model", cubemodel);
-    
-}
+//void DrawCube(Shader cubeShader) 
+//{
+//    //CUBE
+//    glm::mat4 cubemodel = glm::mat4(1.0f);
+//    //model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+//    cubemodel = glm::rotate(cubemodel, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
+//
+//    glm::mat4 cubeview = glm::mat4(1.0f);
+//    // note that we're translating the scene in the reverse direction of where we want to move
+//    cubeview = glm::translate(cubeview, glm::vec3(0.0f, 0.0f, -3.0f));
+//
+//    glm::mat4 cubeprojection = glm::mat4(1.0f);
+//    cubeprojection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+//
+//    unsigned int viewLoc = glGetUniformLocation(cubeShader.ID, "view");
+//
+//    glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &cubeview[0][0]);
+//
+//    cubeShader.setMat4("projection", cubeprojection);
+//    cubeShader.setMat4("model", cubemodel);
+//    
+//}
+//
+////void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)  ////Responsible for the movement between cameras
+////  {
+////    if (action == GLFW_PRESS || action == GLFW_REPEAT) {
+////        if (key == GLFW_KEY_RIGHT) {
+////            camera.cyclePosition(1); // Move to the next position
+////        }
+////        else if (key == GLFW_KEY_LEFT) {
+////            camera.cyclePosition(-1); // Move to the previous position
+////        }
+////    }
+////}
+//
+//void MoveCube(Shader cubeShader,int x, int y, int z)
+//{
+//    glm::vec4 vec(1.0f, 0.0f, 0.0f, 1.0f);
+//    glm::mat4 trans = glm::mat4(1.0f);
+//
+//
+//    trans = glm::translate(trans, glm::vec3(0.0f+x, 0.0f+y, 0.0f+z));
+//    vec = trans * vec;
+//
+//    std::cout << vec.x << vec.y << vec.z << std::endl;
+//
+//    unsigned int transformLoc = glGetUniformLocation(cubeShader.ID, "transform");
+//
+//    glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
+//
+//    cubeShader.setMat4("transform", trans);
+//}

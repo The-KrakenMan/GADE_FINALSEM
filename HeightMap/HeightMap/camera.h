@@ -23,6 +23,7 @@ const float SENSITIVITY = 0.1f;
 const float ZOOM = 45.0f;
 
 
+
 // An abstract camera class that processes input and calculates the corresponding Euler Angles, Vectors and Matrices for use in OpenGL
 class Camera
 {
@@ -40,7 +41,14 @@ public:
     float MovementSpeed;
     float MouseSensitivity;
     float Zoom;
+    //Camera();
+    //void setPosition(int positionIndex); ////Calls Camera.cpp
+    //void cyclePosition(int direction);
+    //void lookAt(const glm::vec3& target);
+    //
 
+    //glm::mat4 getViewMatrix() const;
+    //glm::mat4 getProjectionMatrix(float aspectRatio) const;
     // constructor with vectors
     Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = YAW, float pitch = PITCH) : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM)
     {
@@ -125,6 +133,11 @@ private:
         // also re-calculate the Right and Up vector
         Right = glm::normalize(glm::cross(Front, WorldUp));  // normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
         Up = glm::normalize(glm::cross(Right, Front));
+
     }
+    //glm::vec3 positions[3]; // Store predetermined positions
+    //int currentPosition;    // Index of the current position
+    //glm::vec3 front;
+    //glm::vec3 up;
 };
 #endif  
