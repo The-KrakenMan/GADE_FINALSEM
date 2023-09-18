@@ -9,6 +9,7 @@
 
 #include "shader_m.h"
 #include "camera.h"
+#include "basicCubeMesh.h"
 
 #include <iostream>
 #include <vector>
@@ -84,7 +85,7 @@ int main()
     // build and compile our shader program
     // ------------------------------------
     Shader heightMapShader("resources/shaders/height.shader.vert","resources/shaders/height.shader.frag" );
-
+    Shader cubeShader("resources/shaders/basic.shader.vert", "resources/shaders/basic.shader.frag");
     // load and create a texture
     // -------------------------
     // load image, create texture and generate mipmaps
@@ -161,6 +162,52 @@ int main()
 
     // render loop
     // -----------
+
+    std::vector<basicCubeVertex> cubevertices = {
+       {glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec2(0.0f, 0.0f)},
+       {glm::vec3(0.5f, -0.5f, -0.5f), glm::vec2(1.0f, 0.0f)},
+       {glm::vec3(0.5f,  0.5f, -0.5f), glm::vec2(1.0f, 1.0f)},
+       {glm::vec3(0.5f,  0.5f, -0.5f), glm::vec2(1.0f, 1.0f)},
+       {glm::vec3(-0.5f,  0.5f, -0.5f), glm::vec2(0.0f, 1.0f)},
+       {glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec2(0.0f, 0.0f)},
+
+       {glm::vec3(-0.5f, -0.5f,  0.5f), glm::vec2(0.0f, 0.0f)},
+       {glm::vec3(0.5f, -0.5f,  0.5f), glm::vec2(1.0f, 0.0f)},
+       {glm::vec3(0.5f,  0.5f,  0.5f), glm::vec2(1.0f, 1.0f)},
+       {glm::vec3(0.5f,  0.5f,  0.5f), glm::vec2(1.0f, 1.0f)},
+       {glm::vec3(-0.5f,  0.5f,  0.5f), glm::vec2(0.0f, 1.0f)},
+       {glm::vec3(-0.5f, -0.5f,  0.5f), glm::vec2(0.0f, 0.0f)},
+
+       {glm::vec3(-0.5f,  0.5f,  0.5f), glm::vec2(1.0f, 0.0f)},
+       {glm::vec3(-0.5f,  0.5f, -0.5f), glm::vec2(1.0f, 1.0f)},
+       {glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec2(0.0f, 1.0f)},
+       {glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec2(0.0f, 1.0f)},
+       {glm::vec3(-0.5f, -0.5f,  0.5f), glm::vec2(0.0f, 0.0f)},
+       {glm::vec3(-0.5f,  0.5f,  0.5f), glm::vec2(1.0f, 0.0f)},
+
+       {glm::vec3(0.5f,  0.5f,  0.5f), glm::vec2(1.0f, 0.0f)},
+       {glm::vec3(0.5f,  0.5f, -0.5f), glm::vec2(1.0f, 1.0f)},
+       {glm::vec3(0.5f, -0.5f, -0.5f), glm::vec2(0.0f, 1.0f)},
+       {glm::vec3(0.5f, -0.5f, -0.5f), glm::vec2(0.0f, 1.0f)},
+       {glm::vec3(0.5f, -0.5f,  0.5f), glm::vec2(0.0f, 0.0f)},
+       {glm::vec3(0.5f,  0.5f,  0.5f), glm::vec2(1.0f, 0.0f)},
+
+       {glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec2(0.0f, 1.0f)},
+       {glm::vec3(0.5f, -0.5f, -0.5f), glm::vec2(1.0f, 1.0f)},
+       {glm::vec3(0.5f, -0.5f,  0.5f), glm::vec2(1.0f, 0.0f)},
+       {glm::vec3(0.5f, -0.5f,  0.5f), glm::vec2(1.0f, 0.0f)},
+       {glm::vec3(-0.5f, -0.5f,  0.5f), glm::vec2(0.0f, 0.0f)},
+       {glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec2(0.0f, 1.0f)},
+
+       {glm::vec3(-0.5f,  0.5f, -0.5f), glm::vec2(0.0f, 1.0f)},
+       {glm::vec3(0.5f,  0.5f, -0.5f), glm::vec2(1.0f, 1.0f)},
+       {glm::vec3(0.5f,  0.5f,  0.5f), glm::vec2(1.0f, 0.0f)},
+       {glm::vec3(0.5f,  0.5f,  0.5f), glm::vec2(1.0f, 0.0f)},
+       {glm::vec3(-0.5f,  0.5f,  0.5f), glm::vec2(0.0f, 0.0f)},
+       {glm::vec3(-0.5f,  0.5f, -0.5f), glm::vec2(0.0f, 1.0f)},
+    };
+    basicCubeMesh myCube(cubevertices);
+    
     while (!glfwWindowShouldClose(window))
     {
         // per-frame time logic
@@ -193,6 +240,8 @@ int main()
         glm::mat4 model = glm::mat4(1.0f);
         heightMapShader.setMat4("model", model);
 
+        
+
         // render the cube
         glBindVertexArray(terrainVAO);
         //        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -209,13 +258,35 @@ int main()
         glfwSwapBuffers(window);
         glfwPollEvents();
         unsigned int random;
-        for (size_t i = 0; i < 8; i++)
+        bool white = false;
+        for (size_t i = 0; i < 10; i++)
         {
 
-            for (size_t j = 0; j < 8; j++)
+            for (size_t j = 0; j < 10; j++)
             {
-                random = rand() % 10;
-                DrawCube(i, j, random, 150);
+                if (j < 8)
+                {
+                    random = rand() % 10;
+                    if (white == true)
+                    {
+                        cubeShader.
+                        DrawCube(cubeShader);
+                        myCube.Draw(cubeShader,0);
+                        white = false;
+                    }
+                    else
+                    {
+                        DrawCube(cubeShader);
+                        myCube.Draw(cubeShader, 1);
+                        white = true;
+                    }
+                    
+                }
+                else
+                {
+                    myCube.Draw(cubeShader, 3);
+                }
+                
             }
         }
     }
@@ -306,43 +377,25 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
     camera.ProcessMouseScroll(yoffset);
 }
 
-void DrawCube(GLfloat centerPosX, GLfloat centerPosY, GLfloat centerPosZ, GLfloat edgelength)
+void DrawCube(Shader cubeShader) 
 {
-    GLfloat halfSideLength = edgelength * 0.5;
+    //CUBE
+    glm::mat4 cubemodel = glm::mat4(1.0f);
+    //model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+    cubemodel = glm::rotate(cubemodel, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
 
-    GLfloat vertices[] =
-    {   //front
-        centerPosX - halfSideLength,centerPosY + halfSideLength,centerPosZ + halfSideLength,
-        centerPosX + halfSideLength,centerPosY + halfSideLength,centerPosZ + halfSideLength,
-        centerPosX + halfSideLength,centerPosY - halfSideLength,centerPosZ + halfSideLength,
-        centerPosX - halfSideLength,centerPosY - halfSideLength,centerPosZ + halfSideLength,
-        //back
-        centerPosX - halfSideLength,centerPosY + halfSideLength,centerPosZ - halfSideLength,
-        centerPosX + halfSideLength,centerPosY + halfSideLength,centerPosZ - halfSideLength,
-        centerPosX + halfSideLength,centerPosY - halfSideLength,centerPosZ - halfSideLength,
-        centerPosX - halfSideLength,centerPosY - halfSideLength,centerPosZ - halfSideLength,
-        //left
-        centerPosX - halfSideLength,centerPosY + halfSideLength,centerPosZ + halfSideLength,
-        centerPosX - halfSideLength,centerPosY + halfSideLength,centerPosZ - halfSideLength,
-        centerPosX - halfSideLength,centerPosY - halfSideLength,centerPosZ - halfSideLength,
-        centerPosX - halfSideLength,centerPosY - halfSideLength,centerPosZ + halfSideLength,
-        //right
-        centerPosX + halfSideLength,centerPosY + halfSideLength,centerPosZ + halfSideLength,
-        centerPosX + halfSideLength,centerPosY + halfSideLength,centerPosZ - halfSideLength,
-        centerPosX + halfSideLength,centerPosY - halfSideLength,centerPosZ - halfSideLength,
-        centerPosX + halfSideLength,centerPosY - halfSideLength,centerPosZ + halfSideLength,
-        //top
-        centerPosX - halfSideLength,centerPosY + halfSideLength,centerPosZ + halfSideLength,
-        centerPosX - halfSideLength,centerPosY + halfSideLength,centerPosZ - halfSideLength,
-        centerPosX + halfSideLength,centerPosY + halfSideLength,centerPosZ - halfSideLength,
-        centerPosX + halfSideLength,centerPosY + halfSideLength,centerPosZ + halfSideLength,
-        //bottom
-        centerPosX - halfSideLength,centerPosY - halfSideLength,centerPosZ + halfSideLength,
-        centerPosX - halfSideLength,centerPosY - halfSideLength,centerPosZ - halfSideLength,
-        centerPosX + halfSideLength,centerPosY - halfSideLength,centerPosZ - halfSideLength,
-        centerPosX + halfSideLength,centerPosY - halfSideLength,centerPosZ + halfSideLength
+    glm::mat4 cubeview = glm::mat4(1.0f);
+    // note that we're translating the scene in the reverse direction of where we want to move
+    cubeview = glm::translate(cubeview, glm::vec3(0.0f, 0.0f, -3.0f));
 
-    };
+    glm::mat4 cubeprojection = glm::mat4(1.0f);
+    cubeprojection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
 
-   
+    unsigned int viewLoc = glGetUniformLocation(cubeShader.ID, "view");
+
+    glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &cubeview[0][0]);
+
+    cubeShader.setMat4("projection", cubeprojection);
+    cubeShader.setMat4("model", cubemodel);
+    
 }

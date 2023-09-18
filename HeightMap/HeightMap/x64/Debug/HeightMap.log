@@ -1,18 +1,16 @@
 ﻿  main.cpp
-C:\Users\marnu\source\repos\HeightMap\HeightMap\main.cpp(128,28): warning C4018: '<': signed/unsigned mismatch
-C:\Users\marnu\source\repos\HeightMap\HeightMap\main.cpp(130,32): warning C4018: '<': signed/unsigned mismatch
-C:\Users\marnu\source\repos\HeightMap\HeightMap\main.cpp(168,28): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\marnu\source\repos\HeightMap\HeightMap\main.cpp(199,40): warning C4018: '<': signed/unsigned mismatch
-C:\Users\marnu\source\repos\HeightMap\HeightMap\main.cpp(218,32): warning C4244: 'argument': conversion from 'unsigned int' to 'GLfloat', possible loss of data
-C:\Users\marnu\source\repos\HeightMap\HeightMap\main.cpp(218,29): warning C4244: 'argument': conversion from 'size_t' to 'GLfloat', possible loss of data
-C:\Users\marnu\source\repos\HeightMap\HeightMap\main.cpp(218,26): warning C4244: 'argument': conversion from 'size_t' to 'GLfloat', possible loss of data
-C:\Users\marnu\source\repos\HeightMap\HeightMap\main.cpp(288,17): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\marnu\source\repos\HeightMap\HeightMap\main.cpp(289,17): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\marnu\source\repos\HeightMap\HeightMap\main.cpp(293,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\marnu\source\repos\HeightMap\HeightMap\main.cpp(294,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\marnu\source\repos\HeightMap\HeightMap\main.cpp(296,13): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\marnu\source\repos\HeightMap\HeightMap\main.cpp(297,13): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\marnu\source\repos\HeightMap\HeightMap\main.cpp(306,31): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\marnu\source\repos\HeightMap\HeightMap\main.cpp(311,28): warning C4244: 'initializing': conversion from 'double' to 'GLfloat', possible loss of data
-LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
-  HeightMap.vcxproj -> C:\Users\marnu\source\repos\HeightMap\x64\Debug\HeightMap.exe
+C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(129,28): warning C4018: '<': signed/unsigned mismatch
+C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(131,32): warning C4018: '<': signed/unsigned mismatch
+C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(215,28): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(248,40): warning C4018: '<': signed/unsigned mismatch
+C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(272,25): error C2660: 'DrawCube': function does not take 1 arguments
+C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(22,6): message : see declaration of 'DrawCube'
+C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(272,25): message : while trying to match the argument list '(Shader)'
+C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(273,25): error C2146: syntax error: missing ';' before identifier 'myCube'
+C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(357,17): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(358,17): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(362,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(363,19): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(365,13): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(366,13): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\marnu\Documents\Vega\Chapter 3\Season 2\GADE\GitHub\GADE_FINALSEM\HeightMap\HeightMap\main.cpp(375,31): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
