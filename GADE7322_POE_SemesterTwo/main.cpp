@@ -17,6 +17,7 @@
 #include "Camera.h"
 #include "ObjectContainer.h"
 #include "AnimationController.cpp"
+#include "Model.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int modifiers);
@@ -97,6 +98,7 @@ int main()
 
     Shader myShader("resources/shaders/basic.shader.vert","resources/shaders/basic.shader.frag");
     Shader heightMapShader("resources/shaders/heightmap.shader.vert", "resources/shaders/heightmap.shader.frag");
+    Shader importShader("resources/shaders/importBasic.shader.vert", "resources/shaders/importBasic.shader.frag");
 
     //load texture
 #pragma region TEXTURE
@@ -466,6 +468,16 @@ int main()
 
     AnimationController anim;
 
+
+
+    const char* modelPath = "resources/models/ChessPieceKing/ChessPieceKing.fbx";
+    const char* modelPath = "resources/models/ChessPieceQueen/ChessPieceQueen.fbx";
+    const char* modelPath = "resources/models/ChessPieceRook/ChessPieceRook.fbx";
+
+    Model KingModel(modelPath);
+
+
+
     while (!glfwWindowShouldClose(window))
     {
         float currentFrame = glfwGetTime();
@@ -489,6 +501,9 @@ int main()
         Camera camera(cameraPosition[cameraIndex],
             glm::vec3(0.0f, 1.0f, 0.0f),
             cameraYaw[cameraIndex], cameraPitch[cameraIndex]);
+
+
+        
 
         myShader.use();
 
@@ -597,11 +612,30 @@ int main()
         int newPawnConeSides = 16;
 
 
+
+        //importing model
+        importShader.use();
+
+        //view/projection transformation
+        glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100000.0f);
+        glm::mat4 view = camera.GetViewMatrix();
+        importShader.setMat4("projection", projection);
+        importShader.setMat4("view", view);
+
+        //Render the Loaded model
+        glm::mat4 model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
+        importShader.setMat4("model", model);
+        KingModel.Draw(importShader);
+
+
+
         // Create the new shapes for the pawn piece based on the defined properties
         basicCylinderMesh newPawnCylinder(newPawnCylinderRadius, newPawnCylinderHeight, newPawnCylinderSides);
         basicConeMesh newPawnCone(newPawnConeRadius, newPawnConeHeight, newPawnConeSides);
 #pragma region InstantiateChessPieces
-        //Michael Chess Pieces into containers
+        // Chess Pieces into containers
         kingPiece.addCylinderMesh(newKingCylinder, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(3.0f, 3.0f, 1.5f));
 
         kingPiece.addCylinderMesh(newKingCylinder, glm::vec3(0.0f, 0.0f, 3.4f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(2.5f, 2.5f, 1.0f));
@@ -669,6 +703,13 @@ int main()
 #pragma endregion
 
         //genrating chess pieces
+
+
+
+
+
+
+
         //spawn white pawns
         for (int i = 1; i <= 8; i++)
         {
