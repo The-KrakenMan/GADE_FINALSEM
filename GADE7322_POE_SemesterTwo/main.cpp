@@ -119,6 +119,12 @@ int main()
     std::filesystem::path imagePath5 = "resources/textures/whitePiece.png";
     std::filesystem::path imagePath6 = "resources/textures/brownPiece.png";
     std::filesystem::path imagePath7 = "resources/textures/grass.png";
+
+
+    std::filesystem::path imagePath8 = "resources/textures/Free-Stone-Path-Pattern.jpg";
+    std::filesystem::path imagePath9 = "resources/textures/vecteezy_leaf-pattern-tropical-leaf-wallpaper-seamless-leaf_25446557.jpg";
+    std::filesystem::path imagePath10 = "resources/textures/vecteezy_sea-waves-abstract-backgrounds_25263578.jpg";
+    std::filesystem::path imagePath10 = "resources/textures/vecteezy_vector-wood-background-treated-boards-form-a-wall-floor_.jpg";
     
     //glUniform1i(glGetUniformLocation(myShader.ID, "texture1"), 0);
     // texture 2
@@ -475,6 +481,8 @@ int main()
     const char* modelPath = "resources/models/ChessPieceRook/ChessPieceRook.fbx";
 
     Model KingModel(modelPath);
+    Model QueenModel(modelPath);
+    Model RookModel(modelPath);
 
 
 
