@@ -466,8 +466,30 @@ int main()
 
     AnimationController anim;
 
+    //FPS STUFF//
+    double prevTime = 0.0;
+    double currentTime = 0.0;
+    double timeDiff;
+    unsigned int counter = 0;
+
     while (!glfwWindowShouldClose(window))
     {
+
+        currentTime = glfwGetTime();
+        timeDiff = currentTime - prevTime;
+        counter++;
+        if (timeDiff >= 1.0/30.0)
+        {
+            std::string FPS = std::to_string((1.0 / timeDiff) * counter);
+            //assign UI FOR FPS COUNTER
+            prevTime = currentTime;
+            counter = 0;
+        }
+
+
+
+
+
         float currentFrame = glfwGetTime();
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
