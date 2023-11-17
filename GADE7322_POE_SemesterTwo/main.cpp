@@ -18,6 +18,7 @@
 #include "Camera.h"
 #include "ObjectContainer.h"
 #include "AnimationController.cpp"
+#include "shaderClass.h"
 
 
 
@@ -62,9 +63,6 @@ bool firstMouse = true;
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 
-//lighting
-glm::vec3 lightPos(1.2f, 1.0f, 2.0f); 
-
 int main()
 {
 #pragma region GLFW_INIT_&_SETUP
@@ -104,10 +102,10 @@ int main()
     Shader myShader("resources/shaders/basic.shader.vert","resources/shaders/basic.shader.frag");
     Shader heightMapShader("resources/shaders/heightmap.shader.vert", "resources/shaders/heightmap.shader.frag");
     Shader importShader("resources/shaders/importBasic.shader.vert", "resources/shaders/importBasic.shader.frag");
-    Shader lightingShader("resources/shaders/lighting.Shader.vert", "resources/shaders/lighting.Shader.frag");
-    Shader lightSourceShader("resources/shaders/lightSource.Shader.vert", "resources/shaders/lightSource.Shader.frag");
-    
+    Shader2 skyboxShader("resources/shaders/skybox.vert", "resources/shaders/skybox.frag");
 
+    skyboxShader.Activate();
+    glUniform1i(glGetUniformLocation(skyboxShader.ID, "skybox"), 0);
     //load texture
 #pragma region TEXTURE
     unsigned int texture2;
@@ -394,8 +392,42 @@ int main()
 
     const unsigned int NUM_STRIPS = height2 - 1;
     const unsigned int NUM_VERTS_PER_STRIP = width2 * 2;
+
+    float skyboxVertices[] =
+    {
+        -1.0f, -1.0f,  1.0f,
+         1.0f, -1.0f,  1.0f,
+         1.0f, -1.0f, -1.0f,
+        -1.0f, -1.0f, -1.0f,
+        -1.0f,  1.0f,  1.0f,
+         1.0f,  1.0f,  1.0f,
+         1.0f,  1.0f, -1.0f,
+        -1.0f,  1.0f, -1.0f
+    };
+
+    unsigned int skyboxIndices[] =
+    {
+        // Right
+        1, 2, 6,
+        6, 5, 1,
+        // Left
+        0, 4, 7,
+        7, 3, 0,
+        // Top
+        4, 5, 6,
+        6, 7, 4,
+        // Bottom
+        0, 3, 2,
+        2, 1, 0,
+        // Back
+        0, 1, 5,
+        5, 4, 0,
+        // Front
+        3, 7, 6,
+        6, 2, 3
+    };
      
-    //creating primitive shapes
+ 
     //cube vertices
     std::vector<basicCubeVertex> vertices = {
         {glm::vec3(-0.5f, -0.5f, -0.5f), glm::vec2(0.0f, 0.0f)},
@@ -480,6 +512,73 @@ int main()
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, terrainEBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
 
+    unsigned int skyboxVAO, skyboxVBO, skyboxEBO;
+    glGenVertexArrays(1, &skyboxVAO);
+    glGenBuffers(1, &skyboxVBO);
+    glGenBuffers(1, &skyboxEBO);
+    glBindVertexArray(skyboxVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, skyboxVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(skyboxVertices), &skyboxVertices, GL_STATIC_DRAW);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, skyboxEBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(skyboxIndices), &skyboxIndices, GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+    std::string facesCubemap[6] =
+    {
+       "resources/textures/skybox/right.jpg",
+       "resources/textures/skybox/left.jpg",
+       "resources/textures/skybox/top.jpg",
+        "resources/textures/skybox/bottom.jpg",
+        "resources/textures/skybox/front.jpg",
+      "resources/textures/skybox/back.jpg"
+    };
+
+    // Creates the cubemap texture object
+    unsigned int cubemapTexture;
+    glGenTextures(1, &cubemapTexture);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    // These are very important to prevent seams
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+    // This might help with seams on some systems
+    //glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
+
+    for (unsigned int i = 0; i < 6; i++)
+    {
+        int width, height, nrChannels;
+        unsigned char* data = stbi_load(facesCubemap[i].c_str(), &width, &height, &nrChannels, 0);
+        if (data)
+        {
+            stbi_set_flip_vertically_on_load(false);
+            glTexImage2D
+            (
+                GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
+                0,
+                GL_RGB,
+                width,
+                height,
+                0,
+                GL_RGB,
+                GL_UNSIGNED_BYTE,
+                data
+            );
+            stbi_image_free(data);
+        }
+        else
+        {
+            std::cout << "Failed to load texture: " << facesCubemap[i] << std::endl;
+            stbi_image_free(data);
+        }
+    }
+
+
     AnimationController anim;
 
 
@@ -492,10 +591,11 @@ int main()
     Model QueenModel(modelPath2);
     Model RookModel(modelPath3);
 
-    //lights
-    unsigned int lightCubeVAO;
-    glGenVertexArrays(1, &lightCubeVAO);
-    glBindVertexArray(lightCubeVAO);
+    double prevTime = 0.0;
+    double crntTime = 0.0;
+    double timeDiff;
+    // Keeps track of the amount of frames in timeDiff
+    unsigned int counter = 0;
 
 
 
@@ -508,10 +608,30 @@ int main()
         anim.update(deltaTime);
 
         processInput(window);
+        crntTime = glfwGetTime();
+        timeDiff = crntTime - prevTime;
+        counter++;
 
-        //glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+        if (timeDiff >= 1.0 / 30.0)
+        {
+            // Creates new title
+            std::string FPS = std::to_string((1.0 / timeDiff) * counter);
+            std::string newTitle = "Chessboard - " + FPS + "FPS / ";
+            glfwSetWindowTitle(window, newTitle.c_str());
+
+            // Resets times and counter
+            prevTime = crntTime;
+            counter = 0;
+
+            // Use this if you have disabled VSync
+            //camera.Inputs(window);
+        }
+
+        // Specify the color of the background
+        glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
+        // Clean the back buffer and depth buffer
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 
         /*if (camSwitch == true)
         {
@@ -523,9 +643,7 @@ int main()
             glm::vec3(0.0f, 1.0f, 0.0f),
             cameraYaw[cameraIndex], cameraPitch[cameraIndex]);
 
-        lightingShader.use();
-        lightingShader.setVec3("objectColor", glm::vec3( 1.0f, 0.5f, 0.31f));
-        lightingShader.setVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
+
         
 
         myShader.use();
@@ -645,13 +763,9 @@ int main()
         importShader.setMat4("projection", projection);
         importShader.setMat4("view", view);
 
-
-        
-
-
         //Render the Loaded model
         glm::mat4 Kmodel = glm::mat4(1.0f);
-        Kmodel = glm::translate(Kmodel, glm::vec3(3.0f, 7.0f, -2.0f));
+        Kmodel = glm::translate(Kmodel, glm::vec3(5.0f, 7.0f, -2.0f));
         Kmodel = glm::scale(Kmodel, glm::vec3(0.7f, 0.7f, 0.7f));
         importShader.setMat4("model", Kmodel);
         KingModel.Draw(importShader);
@@ -663,20 +777,10 @@ int main()
         QueenModel.Draw(importShader);
 
         glm::mat4 Rmodel = glm::mat4(1.0f);
-        Rmodel = glm::translate(Rmodel, glm::vec3(-3.0f, 7.0f, -2.0f));
+        Rmodel = glm::translate(Rmodel, glm::vec3(-5.0f, 7.0f, -2.0f));
         Rmodel = glm::scale(Rmodel, glm::vec3(0.7f, 0.7f, 0.7f));
         importShader.setMat4("model", Rmodel);
         RookModel.Draw(importShader);
-
-        //Lightsource
-
-        lightSourceShader.use();
-
-        glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
-        glm::mat4 lmodel = glm::mat4(1.0f);
-        lmodel = glm::translate(lmodel, lightPos);
-        lmodel = glm::scale(lmodel, glm::vec3(0.2f));
-
 
 
         // Create the new shapes for the pawn piece based on the defined properties
@@ -1147,6 +1251,28 @@ int main()
         {
             glDrawElements(GL_TRIANGLE_STRIP, NUM_VERTS_PER_STRIP, GL_UNSIGNED_INT, (void*)(sizeof(unsigned int)* NUM_VERTS_PER_STRIP* strip));
         }
+        glDepthFunc(GL_LEQUAL);
+
+        skyboxShader.Activate();
+        glm::mat4 skyview = glm::mat4(1.0f);
+        glm::mat4 skyprojection = glm::mat4(1.0f);
+        // We make the mat4 into a mat3 and then a mat4 again in order to get rid of the last row and column
+        // The last row and column affect the translation of the skybox (which we don't want to affect)
+        view = glm::mat4(glm::mat3(glm::lookAt(camera.Position, camera.Position + glm::vec3(0.0f, 0.0f, -1.0f), camera.Up)));
+        projection = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / SCR_HEIGHT, 0.1f, 100.0f);
+        glUniformMatrix4fv(glGetUniformLocation(skyboxShader.ID, "view"), 1, GL_FALSE, glm::value_ptr(skyview));
+        glUniformMatrix4fv(glGetUniformLocation(skyboxShader.ID, "projection"), 1, GL_FALSE, glm::value_ptr(skyprojection));
+
+        // Draws the cubemap as the last object so we can save a bit of performance by discarding all fragments
+        // where an object is present (a depth of 1.0f will always fail against any object's depth value)
+        glBindVertexArray(skyboxVAO);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
+        glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+        glBindVertexArray(0);
+
+        // Switch back to the normal depth function
+        glDepthFunc(GL_LESS);
 
 #pragma endregion
         glfwSwapBuffers(window);
