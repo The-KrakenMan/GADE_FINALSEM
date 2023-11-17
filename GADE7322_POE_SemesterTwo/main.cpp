@@ -633,12 +633,23 @@ int main()
         importShader.setMat4("view", view);
 
         //Render the Loaded model
-        glm::mat4 model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
-        model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
-        importShader.setMat4("model", model);
+        glm::mat4 Kmodel = glm::mat4(1.0f);
+        Kmodel = glm::translate(Kmodel, glm::vec3(5.0f, 15.0f, -3.0f));
+        Kmodel = glm::scale(Kmodel, glm::vec3(0.7f, 0.7f, 0.7f));
+        importShader.setMat4("model", Kmodel);
         KingModel.Draw(importShader);
 
+        glm::mat4 Qmodel = glm::mat4(1.0f);
+        Qmodel = glm::translate(Qmodel, glm::vec3(0.0f, 14.0f, -3.0f));
+        Qmodel = glm::scale(Qmodel, glm::vec3(0.7f, 0.7f, 0.7f));
+        importShader.setMat4("model", Qmodel);
+        QueenModel.Draw(importShader);
+
+        glm::mat4 Rmodel = glm::mat4(1.0f);
+        Rmodel = glm::translate(Rmodel, glm::vec3(0.0f, 7.0f, 0.0f));
+        Rmodel = glm::scale(Rmodel, glm::vec3(0.7f, 0.7f, 0.7f));
+        importShader.setMat4("model", Rmodel);
+        RookModel.Draw(importShader);
 
 
         // Create the new shapes for the pawn piece based on the defined properties
@@ -646,13 +657,13 @@ int main()
         basicConeMesh newPawnCone(newPawnConeRadius, newPawnConeHeight, newPawnConeSides);
 #pragma region InstantiateChessPieces
         // Chess Pieces into containers
-        kingPiece.addCylinderMesh(newKingCylinder, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(3.0f, 3.0f, 1.5f));
+        /*kingPiece.addCylinderMesh(newKingCylinder, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(3.0f, 3.0f, 1.5f));
 
         kingPiece.addCylinderMesh(newKingCylinder, glm::vec3(0.0f, 0.0f, 3.4f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(2.5f, 2.5f, 1.0f));
 
         kingPiece.addConeMesh(newKingCone, glm::vec3(0.0f, 0.0f, 2.9f), glm::vec3(180.0f, 0.0f, 0.0f), glm::vec3(2.5f, 2.5f, 5.0f));
 
-        kingPiece.addConeMesh(newKingCone, glm::vec3(0.0f, 0.0f, 5.4f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(2.5f, 2.5f, 1.2f));
+        kingPiece.addConeMesh(newKingCone, glm::vec3(0.0f, 0.0f, 5.4f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(2.5f, 2.5f, 1.2f));*/
 
 
 
