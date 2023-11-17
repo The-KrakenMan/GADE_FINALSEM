@@ -62,6 +62,9 @@ bool firstMouse = true;
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 
+//lighting
+glm::vec3 lightPos(1.2f, 1.0f, 2.0f); 
+
 int main()
 {
 #pragma region GLFW_INIT_&_SETUP
@@ -101,6 +104,9 @@ int main()
     Shader myShader("resources/shaders/basic.shader.vert","resources/shaders/basic.shader.frag");
     Shader heightMapShader("resources/shaders/heightmap.shader.vert", "resources/shaders/heightmap.shader.frag");
     Shader importShader("resources/shaders/importBasic.shader.vert", "resources/shaders/importBasic.shader.frag");
+    Shader lightingShader("resources/shaders/lighting.Shader.vert", "resources/shaders/lighting.Shader.frag");
+    Shader lightSourceShader("resources/shaders/lightSource.Shader.vert", "resources/shaders/lightSource.Shader.frag");
+    
 
     //load texture
 #pragma region TEXTURE
@@ -486,6 +492,11 @@ int main()
     Model QueenModel(modelPath2);
     Model RookModel(modelPath3);
 
+    //lights
+    unsigned int lightCubeVAO;
+    glGenVertexArrays(1, &lightCubeVAO);
+    glBindVertexArray(lightCubeVAO);
+
 
 
     while (!glfwWindowShouldClose(window))
@@ -512,7 +523,9 @@ int main()
             glm::vec3(0.0f, 1.0f, 0.0f),
             cameraYaw[cameraIndex], cameraPitch[cameraIndex]);
 
-
+        lightingShader.use();
+        lightingShader.setVec3("objectColor", glm::vec3( 1.0f, 0.5f, 0.31f));
+        lightingShader.setVec3("lightColor", glm::vec3(1.0f, 1.0f, 1.0f));
         
 
         myShader.use();
@@ -632,24 +645,38 @@ int main()
         importShader.setMat4("projection", projection);
         importShader.setMat4("view", view);
 
+
+        
+
+
         //Render the Loaded model
         glm::mat4 Kmodel = glm::mat4(1.0f);
-        Kmodel = glm::translate(Kmodel, glm::vec3(5.0f, 15.0f, -3.0f));
+        Kmodel = glm::translate(Kmodel, glm::vec3(3.0f, 7.0f, -2.0f));
         Kmodel = glm::scale(Kmodel, glm::vec3(0.7f, 0.7f, 0.7f));
         importShader.setMat4("model", Kmodel);
         KingModel.Draw(importShader);
 
         glm::mat4 Qmodel = glm::mat4(1.0f);
-        Qmodel = glm::translate(Qmodel, glm::vec3(0.0f, 14.0f, -3.0f));
+        Qmodel = glm::translate(Qmodel, glm::vec3(0.0f, 7.0f, -2.0f));
         Qmodel = glm::scale(Qmodel, glm::vec3(0.7f, 0.7f, 0.7f));
         importShader.setMat4("model", Qmodel);
         QueenModel.Draw(importShader);
 
         glm::mat4 Rmodel = glm::mat4(1.0f);
-        Rmodel = glm::translate(Rmodel, glm::vec3(0.0f, 7.0f, 0.0f));
+        Rmodel = glm::translate(Rmodel, glm::vec3(-3.0f, 7.0f, -2.0f));
         Rmodel = glm::scale(Rmodel, glm::vec3(0.7f, 0.7f, 0.7f));
         importShader.setMat4("model", Rmodel);
         RookModel.Draw(importShader);
+
+        //Lightsource
+
+        lightSourceShader.use();
+
+        glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
+        glm::mat4 lmodel = glm::mat4(1.0f);
+        lmodel = glm::translate(lmodel, lightPos);
+        lmodel = glm::scale(lmodel, glm::vec3(0.2f));
+
 
 
         // Create the new shapes for the pawn piece based on the defined properties

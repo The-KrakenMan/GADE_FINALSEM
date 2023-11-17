@@ -85,5 +85,17 @@
     <None Include="resources\shaders\importBasic.shader.vert">
       <Filter>Resource Files\Shaders</Filter>
     </None>
+    <None Include="resources\shaders\lighting.Shader.frag">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="resources\shaders\lighting.Shader.vert">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="resources\shaders\lightSource.Shader.frag">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="resources\shaders\lightSource.Shader.vert">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>
