@@ -1,7 +1,8 @@
 #ifndef MODEL_H
 #define MODEL_H
-#define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
+
+
 #pragma once
 
 #include<glad/glad.h>
@@ -50,9 +51,6 @@ public:
     }
 
 private:
-    vector <importMesh>meshes;
-    vector<Texture>textures_loaded;
-    string directory;
 
     // loads a model with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.
     void loadModel(string const& path)

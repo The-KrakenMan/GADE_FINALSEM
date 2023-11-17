@@ -1,5 +1,7 @@
 #ifndef IMPORTMESH_H
 #define IMPORTMESH_H
+
+#include "stb_image.h"
 #pragma once
 
 #include <glad/glad.h>

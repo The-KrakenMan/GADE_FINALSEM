@@ -1,3 +1,4 @@
+#include "Model.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 #include <glad/glad.h>
@@ -17,7 +18,8 @@
 #include "Camera.h"
 #include "ObjectContainer.h"
 #include "AnimationController.cpp"
-#include "Model.h"
+
+
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int modifiers);
@@ -124,7 +126,7 @@ int main()
     std::filesystem::path imagePath8 = "resources/textures/Free-Stone-Path-Pattern.jpg";
     std::filesystem::path imagePath9 = "resources/textures/vecteezy_leaf-pattern-tropical-leaf-wallpaper-seamless-leaf_25446557.jpg";
     std::filesystem::path imagePath10 = "resources/textures/vecteezy_sea-waves-abstract-backgrounds_25263578.jpg";
-    std::filesystem::path imagePath10 = "resources/textures/vecteezy_vector-wood-background-treated-boards-form-a-wall-floor_.jpg";
+    std::filesystem::path imagePath11 = "resources/textures/vecteezy_vector-wood-background-treated-boards-form-a-wall-floor_.jpg";
     
     //glUniform1i(glGetUniformLocation(myShader.ID, "texture1"), 0);
     // texture 2
@@ -476,13 +478,13 @@ int main()
 
 
 
-    const char* modelPath = "resources/models/ChessPieceKing/ChessPieceKing.fbx";
-    const char* modelPath = "resources/models/ChessPieceQueen/ChessPieceQueen.fbx";
-    const char* modelPath = "resources/models/ChessPieceRook/ChessPieceRook.fbx";
+    const char* modelPath1 = "resources/models/ChessPieceKing/ChessPieceKing.fbx";
+    const char* modelPath2 = "resources/models/ChessPieceQueen/ChessPieceQueen.fbx";
+    const char* modelPath3 = "resources/models/ChessPieceRook/ChessPieceRook.fbx";
 
-    Model KingModel(modelPath);
-    Model QueenModel(modelPath);
-    Model RookModel(modelPath);
+    Model KingModel(modelPath1);
+    Model QueenModel(modelPath2);
+    Model RookModel(modelPath3);
 
 
 
@@ -625,8 +627,8 @@ int main()
         importShader.use();
 
         //view/projection transformation
-        glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100000.0f);
-        glm::mat4 view = camera.GetViewMatrix();
+        projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100000.0f);
+        view = camera.GetViewMatrix();
         importShader.setMat4("projection", projection);
         importShader.setMat4("view", view);
 
